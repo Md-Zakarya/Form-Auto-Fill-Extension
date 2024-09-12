@@ -1,0 +1,41 @@
+{
+    "manifest_version": 3,
+    "name": "Form Auto-Fill Extension",
+    "version": "1.0",
+    "description": "Auto-fill forms with user data in a single click.",
+    "permissions": [
+      "activeTab",
+      "storage",
+      "scripting",
+      "tabs"
+    ],
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": "icon.png"
+    },
+    "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["icon.png"],
+        "matches": ["<all_urls>"]
+      }
+    ],
+    "options_page": "popup.html"
+  }
+  

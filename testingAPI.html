@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini API Example</title>
+</head>
+<body>
+    <h1>Gemini API Story Generator</h1>
+    <p>Enter a prompt to generate content using Google Gemini API:</p>
+    <input type="text" id="promptInput" placeholder="Enter your prompt here..." style="width: 300px; padding: 5px;">
+    <button id="generateBtn" style="padding: 5px;">Generate Story</button>
+
+    <h2>Generated Story:</h2>
+    <p id="storyOutput"></p>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // Initialize Gemini API using your API key
+        const API_KEY = "AIzaSyDkX7eB74KCKzHoNZajnZ1PntYcJ9tItbY"; // Replace with your API key
+        const genAI = new GoogleGenerativeAI(API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        document.getElementById("generateBtn").addEventListener("click", async () => {
+            const prompt = document.getElementById("promptInput").value;
+
+            try {
+                const result = await model.generateContent(prompt);
+                document.getElementById("storyOutput").innerText = result.response.text();
+            } catch (error) {
+                console.error("Error generating content:", error);
+                document.getElementById("storyOutput").innerText = "Failed to generate content.";
+            }
+        });
+    </script>
+</body>
+</html>
